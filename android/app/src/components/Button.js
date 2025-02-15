@@ -1,14 +1,32 @@
-import { TouchableOpacity, Text,View } from "react-native";
+import React from 'react';
+import { TouchableOpacity, StyleSheet } from 'react-native';
+import { SmallText } from './Text';
+import Colors from '../constants/Colors';
 
-export const CustomButton = (props) =>{
-    const { textToShow,customStyle} = props;
-    return(
-        <View><TouchableOpacity
-            style={[ customStyle]}
+export const CustomButton = (props) => {
+    const { buttonCustomStyle } = props;
+    return (
+        <TouchableOpacity
+            style={[styles.buttonContainer, buttonCustomStyle]}
             {...props}
-            >
-                <Text>{textToShow}</Text>
-                </TouchableOpacity>
-         </View>
+        >
+            <SmallText textCustomStyle={styles.buttonText} {...props} />
+        </TouchableOpacity>
     )
-}
+};
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        backgroundColor: Colors.PRIMARY,
+        marginVertical: 8,
+        padding: 8,
+        borderRadius: 30,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    buttonText: {
+        color: Colors.WHITE,
+    },
+});

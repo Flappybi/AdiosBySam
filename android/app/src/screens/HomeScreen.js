@@ -8,6 +8,7 @@ import { brandData } from '../data/brandDummyData';
 import { Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
+import { CustomButton } from '../components/Button';
 
 const { width } = Dimensions.get('window');
 const HomeScreen = () => {
@@ -32,6 +33,11 @@ const HomeScreen = () => {
     //     </View>
 
     <View>
+      <CustomButton
+        textToShow='adios'
+        isShowLogo
+        isShowRightIcon
+      />
       <SwiperFlatList
         data={brandData}
         autoplay
