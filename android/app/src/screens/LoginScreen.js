@@ -11,77 +11,88 @@ import { LargeText, MediumText, SmallText } from '../components/Text';
 import { Icon } from '@rneui/themed';
 import { CustomButton } from '../components/Button';
 import *as yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
+import registerScreen from './registerScreen';
 
 const LoginScreen = () => {
-  const validateLoginForm = yup.object().shappe({
-    email: yup.strong()
-       .email('please entervalid email!')
-       .requaired('email is requaired'),
-    password: yup.string()
-       .requaired('password is requaired')   
-  });
+    const navigation = useNavigation();
+    const validateLoginForm = yup.object().shappe({
+        email: yup.strong()
+            .email('please entervalid email!')
+            .requaired('email is requaired'),
+        password: yup.string()
+            .requaired('password is requaired')
+    });
     return (
-        <View style={styles.mainContainer}>
-            <CustomHeader
-                textToShow='Login'
-                isStackScreen
-                headerCustomStyle={{ backgroundColor: Colors.WHITE }}
-            />
-            <Formik
-                initialValues={{
-                    email: '',
-                    password: '',
-                }}
-            >
-                {({
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    errors,
-                    touched
-                }) => (
-                    <View style={styles.contentContainer}>
-                        <LargeText textToShow='Login to your account' />
-                        <SmallText textToShow='Please fill out the form below!' />
-                        <SmallText textToShow='Email' />
-                        <View style={styles.input}>
-                            <Icon
-                                name='email'
-                                type='material-community'
-                                color={Colors.GRAY}
-                            />
-                            <TextInput
-                                onChangeText={handleChange('email')}
-                                onBlur={handleBlur('email')}
-                                placeholder='Email'
-                                style={styles.innerInput}
-                            />
-                        </View>
-                        {
-                            errors.email && touched.email ?
-                                <SmallText
-                                    textToShow={errors.email}
-                                    textCustomStyle={styles.errorMessage}
+        <View>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <MediumText
+                    textToShow='register'
+                    textCustomStyle={styles.registerText}
+                />
+            </TouchableOpacity>
+            <View style={styles.mainContainer}>
+                <CustomHeader
+                    textToShow='Login'
+                    isStackScreen
+                    headerCustomStyle={{ backgroundColor: Colors.WHITE }}
+                />
+                <Formik
+                    initialValues={{
+                        email: '',
+                        password: '',
+                    }}
+                >
+                    {({
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        errors,
+                        touched
+                    }) => (
+                        <View style={styles.contentContainer}>
+                            <LargeText textToShow='Login to your account' />
+                            <SmallText textToShow='Please fill out the form below!' />
+                            <SmallText textToShow='Email' />
+                            <View style={styles.input}>
+                                <Icon
+                                    name='email'
+                                    type='material-community'
+                                    color={Colors.GRAY}
                                 />
-                                :
-                                null
-                        }
-                        <View style={styles.bottomContentContainer}>
-                            <CustomButton
-                                textToShow='Login'
-                                buttonCustomStyle={styles.loginButton}
-                            />
-                            <MediumText textToShow='Or' />
-                            <View style={styles.questionContainer}>
-                                <MediumText textToShow="Don't have an account? " />
-                                <TouchableOpacity>
-                                    <MediumText textToShow='Register' textCustomStyle={styles.registerText} />
-                                </TouchableOpacity>
+                                <TextInput
+                                    onChangeText={handleChange('email')}
+                                    onBlur={handleBlur('email')}
+                                    placeholder='Email'
+                                    style={styles.innerInput}
+                                />
+                            </View>
+                            {
+                                errors.email && touched.email ?
+                                    <SmallText
+                                        textToShow={errors.email}
+                                        textCustomStyle={styles.errorMessage}
+                                    />
+                                    :
+                                    null
+                            }
+                            <View style={styles.bottomContentContainer}>
+                                <CustomButton
+                                    textToShow='Login'
+                                    buttonCustomStyle={styles.loginButton}
+                                />
+                                <MediumText textToShow='Or' />
+                                <View style={styles.questionContainer}>
+                                    <MediumText textToShow="Don't have an account? " />
+                                    <TouchableOpacity>
+                                        <MediumText textToShow='Register' textCustomStyle={styles.registerText} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                )}
-            </Formik>
+                    )}
+                </Formik>
+            </View>
         </View>
     )
 };
